@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class ItemDto {
-    private final Long id;
+    private final long id;
     private final String name;
     private final String description;
     private final String category;
