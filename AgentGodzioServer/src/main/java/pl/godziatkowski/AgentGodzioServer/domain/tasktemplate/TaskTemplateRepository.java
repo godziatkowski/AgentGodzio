@@ -4,5 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 @Component
-interface TaskTemplateRepository extends JpaRepository<Long, TaskTemplate>{
+interface TaskTemplateRepository extends JpaRepository<TaskTemplate, Long>{
 }

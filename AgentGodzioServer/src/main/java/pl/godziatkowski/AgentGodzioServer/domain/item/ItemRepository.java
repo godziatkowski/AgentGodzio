@@ -4,5 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 @Component
-interface ItemRepository extends JpaRepository<Long, Item>{
+interface ItemRepository extends JpaRepository<Item, Long>{
 }
