@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 class Comment {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
     private Task task;

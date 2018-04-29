@@ -8,7 +8,7 @@ import java.time.Duration;
 @Getter
 @AllArgsConstructor
 class NotificationDto {
-    private final long id;
+    private final Long id;
     private final NotificationTopic notificationTopic;
     private final long topicId;
     private final long recipient;

@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Getter
 @AllArgsConstructor
 public class BorrowEventDto {
-    private final long id;
+    private final Long id;
     private final long itemId;
     private final String borrowedTo;
     private final LocalDate borrowedAt;

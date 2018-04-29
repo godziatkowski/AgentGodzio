@@ -1,7 +1,12 @@
 package pl.godziatkowski.AgentGodzioServer.domain.user;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.Set;
 
+@Getter
+@AllArgsConstructor
 public class UserDto {
 
     private long id;

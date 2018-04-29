@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Entity
 class Task {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
     private String description;
     private long authorId;

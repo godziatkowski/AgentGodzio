@@ -1,7 +1,7 @@
 package pl.godziatkowski.AgentGodzioServer.domain.task;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -9,13 +9,12 @@ import java.time.Period;
 import java.util.List;
 import java.util.Set;
 
-@Builder
-@Data
-@Entity
+@Getter
+@AllArgsConstructor
 class TaskDto {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     private String description;
     private long authorId;
     private Set<Long> assignedTo;

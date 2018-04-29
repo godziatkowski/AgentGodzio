@@ -5,7 +5,6 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Set;
 
@@ -15,7 +14,7 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
 
     private String name;
@@ -23,4 +22,8 @@ public class User {
     private UserRole role;
 
     private Set<Long> newComments;
+
+    UserDto toDto(){
+        return new UserDto(id, name, role, newComments);
+    }
 }
