@@ -10,13 +10,13 @@ import java.util.Set;
 @Getter
 @AllArgsConstructor
 public class TaskTemplateDto {
-    private long id;
-    private RepeatMode repeatMode;
-    private String description;
-    private long author;
-    private Set<Long> assignedTo;
-    private Period remindBefore;
-    private TaskStatus taskStatus;
-    private long assignee;
+    private final long id;
+    private final RepeatMode repeatMode;
+    private final String description;
+    private final long author;
+    private final Set<Long> assignedTo;
+    private final Period remindBefore;
+    private final TaskStatus taskStatus;
+    private final long assignee;
 
 }

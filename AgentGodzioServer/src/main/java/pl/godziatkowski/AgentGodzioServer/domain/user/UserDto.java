@@ -2,18 +2,22 @@ package pl.godziatkowski.AgentGodzioServer.domain.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Set;
 
 @Getter
+@RequiredArgsConstructor
 @AllArgsConstructor
 public class UserDto {
 
-    private long id;
+    private final long id;
 
-    private String name;
+    private final String name;
 
-    private UserRole role;
+    private final UserRole role;
 
-    private Set<Long> newComments;
+    private final Set<Long> newComments;
+
+    private String password;
 }

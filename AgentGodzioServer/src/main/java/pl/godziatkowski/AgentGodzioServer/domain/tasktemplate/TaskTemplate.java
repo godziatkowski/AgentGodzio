@@ -4,11 +4,9 @@ import lombok.Builder;
 import lombok.Data;
 import pl.godziatkowski.AgentGodzioServer.domain.task.TaskStatus;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.Period;
+import java.util.HashSet;
 import java.util.Set;
 
 @Builder
@@ -21,12 +19,17 @@ class TaskTemplate {
     private RepeatMode repeatMode;
     private String description;
     private long author;
-    private Set<Long> assignedTo;
+    @ElementCollection(targetClass = Long.class, fetch = FetchType.EAGER)
+    private Set<Long> assignableTo;
     private Period remindBefore;
     private TaskStatus taskStatus;
-    private Long assignee;
+    private Long assignedTo;
+
+    public TaskTemplate() {
+        this.assignableTo = new HashSet<>();
+    }
 
     TaskTemplateDto toDto() {
-        return new TaskTemplateDto(id, repeatMode, description, author, assignedTo, remindBefore, taskStatus, assignee);
+        return new TaskTemplateDto(id, repeatMode, description, author, assignableTo, remindBefore, taskStatus, assignedTo);
     }
 }

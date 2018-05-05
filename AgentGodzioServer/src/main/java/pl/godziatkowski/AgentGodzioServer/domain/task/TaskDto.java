@@ -14,21 +14,17 @@ import java.util.Set;
 class TaskDto {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String description;
-    private long authorId;
-    private Set<Long> assignedTo;
-    private long assignee;
-    private TaskStatus status;
-    private LocalDate deadline;
-    private Period remindBefore;
-    private boolean archived;
-    private Set<Long> linkedTasks;
-    private Set<Long> relatedUsers;
-    @OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER,
-            orphanRemoval = true,
-            mappedBy = "goal")
-    private List<CommentDto> comments;
+    private final Long id;
+    private final String description;
+    private final long authorId;
+    private final Set<Long> assignableTo;
+    private final long assignedTo;
+    private final TaskStatus status;
+    private final LocalDate deadline;
+    private final Period remindBefore;
+    private final boolean archived;
+    private final Set<Long> linkedTasks;
+    private final Set<Long> relatedUsers;
+    private final List<CommentDto> comments;
 
 }
