@@ -24,7 +24,7 @@ class User {
     @Column(nullable = false, length = 10)
     private UserRole role;
 
-    @Column(nullable = false, length = 25)
+    @Column(nullable = false, length = 60)
     private String password;
 
     @ElementCollection(targetClass = Long.class, fetch = FetchType.EAGER)
