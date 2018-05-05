@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:h2:mem:AgentGodzio;DB_CLOSE_DELAY=-1
+  jpa:
+    show-sql: true
+  flyway:
+    enabled: false

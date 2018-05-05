@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/agent_godzio
+    username: root
+    password: admin
+  flyway:
+    enabled: true
