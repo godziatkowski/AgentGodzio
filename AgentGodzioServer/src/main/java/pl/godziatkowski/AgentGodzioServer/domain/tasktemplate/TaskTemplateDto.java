@@ -10,7 +10,7 @@ import java.util.Set;
 @Getter
 @AllArgsConstructor
 public class TaskTemplateDto {
-    private final long id;
+    private final Long id;
     private final RepeatMode repeatMode;
     private final String description;
     private final long author;
