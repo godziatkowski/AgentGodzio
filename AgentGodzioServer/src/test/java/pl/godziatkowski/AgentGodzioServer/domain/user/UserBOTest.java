@@ -9,13 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
+import pl.godziatkowski.AgentGodzioServer.error.NotFoundException;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static pl.godziatkowski.AgentGodzioServer.domain.user.UserDtoTestBuilder.userDto;
 
@@ -25,7 +28,7 @@ import static pl.godziatkowski.AgentGodzioServer.domain.user.UserDtoTestBuilder.
 public class UserBOTest {
 
     private static final String CLAZZ = UserBOTest.class.getSimpleName();
-    
+
     @Autowired
     UserRepository repository;
     @Autowired
@@ -51,7 +54,7 @@ public class UserBOTest {
     }
 
     @Test
-    public void addUserTest() {
+    public void shouldAddUser() {
         //given
         String stringValue = "String";
         UserRole userRole = UserRole.ADMIN;
@@ -72,7 +75,7 @@ public class UserBOTest {
     }
 
     @Test
-    public void updateUser() {
+    public void shouldUpdateUser() {
         //given
         String newName = CLAZZ + 1;
         UserDto userDto = userDto().setName(newName).buildDto();
@@ -81,6 +84,12 @@ public class UserBOTest {
         //then
         User user = getUpdatedUser();
         assertThat(user.getName()).isEqualTo(newName);
+    }
+
+    @Test
+    public void updateUser_shouldThrowException_whenUserNotFound() {
+        assertThatExceptionOfType(NotFoundException.class)
+                .isThrownBy(() -> bo.updateUser(Long.MAX_VALUE, userDto().buildDto()));
     }
 
     @Test
@@ -97,7 +106,13 @@ public class UserBOTest {
     }
 
     @Test
-    public void setRole() {
+    public void changePassword_shouldThrowException_whenUserNotFound() {
+        assertThatExceptionOfType(NotFoundException.class)
+                .isThrownBy(() -> bo.changePassword(Long.MAX_VALUE, CLAZZ));
+    }
+
+    @Test
+    public void changeRole() {
         //given
         UserRole newRole = UserRole.USER;
         //when
@@ -105,6 +120,12 @@ public class UserBOTest {
         //then
         User user = getUpdatedUser();
         assertThat(user.getRole()).isEqualTo(newRole);
+    }
+
+    @Test
+    public void changeRole_shouldThrowException_whenUserNotFound() {
+        assertThatExceptionOfType(NotFoundException.class)
+                .isThrownBy(() -> bo.changeRole(Long.MAX_VALUE, UserRole.ADMIN));
     }
 
     @Test
@@ -119,6 +140,12 @@ public class UserBOTest {
     }
 
     @Test
+    public void addComment_shouldThrowException_whenUserNotFound() {
+        assertThatExceptionOfType(NotFoundException.class)
+                .isThrownBy(() -> bo.addCommentToRead(Long.MAX_VALUE, Long.MAX_VALUE));
+    }
+
+    @Test
     public void removeDisplayedComment() {
         //given
         List<Long> commentIds = LongStream.range(0, 10)
@@ -126,13 +153,19 @@ public class UserBOTest {
                 .collect(Collectors.toList());
         commentIds.forEach(id -> bo.addCommentToRead(existingUser.getId(), id));
         Set<Long> commentIdsToRemove = commentIds.stream()
-                .filter(id -> id % 2 ==0)
+                .filter(id -> id % 2 == 0)
                 .collect(Collectors.toSet());
         //when
         bo.removeDisplayedComment(existingUser.getId(), commentIdsToRemove);
         //then
         User user = getUpdatedUser();
         assertThat(user.getNewComments()).doesNotContainAnyElementsOf(commentIdsToRemove);
+    }
+
+    @Test
+    public void removeDisplayedComment_shouldThrowException_whenUserNotFound() {
+        assertThatExceptionOfType(NotFoundException.class)
+                .isThrownBy(() -> bo.removeDisplayedComment(Long.MAX_VALUE, new HashSet<>()));
     }
 
     private User getUpdatedUser() {
