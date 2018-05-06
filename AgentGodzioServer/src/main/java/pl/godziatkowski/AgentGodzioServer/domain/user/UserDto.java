@@ -11,7 +11,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class UserDto {
 
-    private final long id;
+    private final Long id;
 
     private final String name;
 

@@ -41,7 +41,7 @@ public class UserBO {
         log.info("Changed password for User with id <{}>", user.getId());
     }
 
-    public void setRole(long userId, UserRole userRole) {
+    public void changeRole(long userId, UserRole userRole) {
         User user = getUser(userId);
         user.setRole(userRole);
         userRepository.save(user);
