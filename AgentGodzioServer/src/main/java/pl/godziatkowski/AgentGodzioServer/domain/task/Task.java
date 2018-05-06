@@ -7,6 +7,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,7 +15,6 @@ import java.util.stream.Collectors;
 
 @Builder
 @Data
-@AllArgsConstructor
 @Entity
 class Task {
     @Id
@@ -23,27 +23,25 @@ class Task {
     private String description;
     private long authorId;
     @ElementCollection(targetClass = Long.class, fetch = FetchType.EAGER)
-    private Set<Long> assignableTo;
+    @Builder.Default
+    private Set<Long> assignableTo = new HashSet<>();
     private long assignedTo;
     private TaskStatus status;
     private LocalDate deadline;
     private Period remindBefore;
     private boolean archived;
     @ElementCollection(targetClass = Long.class, fetch = FetchType.EAGER)
-    private Set<Long> linkedTasks;
+    @Builder.Default
+    private Set<Long> linkedTasks = new HashSet<>();
     @ElementCollection(targetClass = Long.class, fetch = FetchType.EAGER)
-    private Set<Long> relatedUsers;
+    @Builder.Default
+    private Set<Long> relatedUsers = new HashSet<>();
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
             orphanRemoval = true,
             mappedBy = "task")
-    private List<Comment> comments;
-
-    public Task() {
-        this.assignableTo = new HashSet<>();
-        this.linkedTasks = new HashSet<>();
-        this.relatedUsers = new HashSet<>();
-    }
+    @Builder.Default
+    private List<Comment> comments = new ArrayList<>();
 
     TaskDto toDto() {
         List<CommentDto> commentDtos = comments.stream().map(Comment::toDto).collect(Collectors.toList());

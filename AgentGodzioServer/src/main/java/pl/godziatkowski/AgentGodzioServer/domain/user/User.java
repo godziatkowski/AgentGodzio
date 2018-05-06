@@ -1,6 +1,5 @@
 package pl.godziatkowski.AgentGodzioServer.domain.user;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
@@ -9,7 +8,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Builder
-@AllArgsConstructor
 @Data
 @Entity
 class User {
@@ -28,11 +26,8 @@ class User {
     private String password;
 
     @ElementCollection(targetClass = Long.class, fetch = FetchType.EAGER)
-    private Set<Long> newComments;
-
-    public User() {
-        this.newComments = new HashSet<>();
-    }
+    @Builder.Default
+    private Set<Long> newComments = new HashSet<>();
 
     UserDto toDto(){
         return new UserDto(id, name, role, newComments);
